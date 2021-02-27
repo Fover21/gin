@@ -1,7 +1,7 @@
 package cors
 
 import (
-	"fmt"
+	//"fmt"
 	"github.com/gin-gonic/gin"
 	"log"
 	"net/http"

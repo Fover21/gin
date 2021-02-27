@@ -13,7 +13,7 @@ func main() {
 	routers.Include(shop.Routers, blog.Routers, login.Routers)
 	// 初始化路由
 	r := routers.Init()
-	if err := r.Run(); err != nil {
+	if err := r.Run(":8090"); err != nil {
 	fmt.Println("startup service failed, err:%v\n", err)
 	}
 }

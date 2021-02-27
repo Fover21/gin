@@ -14,15 +14,29 @@ func Include(opts ...Option) {
 	options = append(options, opts...)
 }
 
+//gin中间件中使用goroutine
+//当在中间件或handler中启动新的goroutine时，不能使用原始的上下文（c *gin.Context），必须使用其只读副本（c.Copy()）。
+
 // 初始化
 func Init() *gin.Engine {
+	// gin.Default()默认使用了Logger和Recovery中间件
 	r := gin.Default()
+	// 不使用任何中间件
+	// r:=gin.New()
 
 	// 全局中间件
-	r.Use(gin.Logger())
-	r.Use(gin.Recovery())
+	//r.Use(gin.Logger())
+	//r.Use(gin.Recovery())
+
 	// 使用跨域中间件
 	r.Use(cors.Cors())
+
+	// 在配置模板之前的时候加载   -  以static开头的去"./statics" 这里找
+	r.Static("/static", "./statics")
+
+	// 配置模板
+	// Gin框架默认都是使用单模板，如果需要使用block template功能，可以通过"github.com/gin-contrib/multitemplate"
+	r.LoadHTMLGlob("templates/**/*")
 
 	for _, opt := range options {
 		opt(r)
