@@ -3,6 +3,8 @@ package routers
 import (
 	"gin_one/middleware/cors"
 	"github.com/gin-gonic/gin"
+	"io"
+	"os"
 )
 
 type Option func(*gin.Engine)
@@ -19,6 +21,15 @@ func Include(opts ...Option) {
 
 // 初始化
 func Init() *gin.Engine {
+	gin.DisableConsoleColor()
+
+	// Logging to a file.
+	f, _ := os.Create("gin.log")
+	gin.DefaultWriter = io.MultiWriter(f)
+
+	// 如果需要同时将日志写入文件和控制台，请使用以下代码。
+	// gin.DefaultWriter = io.MultiWriter(f, os.Stdout)
+
 	// gin.Default()默认使用了Logger和Recovery中间件
 	r := gin.Default()
 	// 不使用任何中间件
