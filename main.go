@@ -10,7 +10,7 @@ import (
 )
 
 func main() {
-	// ceshi
+	//
 	// 加载多个APP的路由配置
 	routers.Include(shop.Routers, blog.Routers, login.Routers, appall.Routers)
 	// 初始化路由
