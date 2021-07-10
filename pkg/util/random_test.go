@@ -16,35 +16,3 @@ func TestRandomInt32(t *testing.T) {
 		t.Error("not equal 0 as expect")
 	}
 }
-
-func TestGetResultsByWeight(t *testing.T) {
-	weightMap := map[uint32]int32{}
-	weightMap[101] = 10
-	weightMap[201] = 20
-	weightMap[301] = 30
-
-	count := int32(10000)
-	lst := GetResultsByWeight(weightMap, count)
-	if len(lst) != int(count) {
-		t.Error("length not as expect")
-	}
-
-	resultMap := map[uint32]int{}
-	for _, v := range lst {
-		if v != 101 && v != 201 && v != 301 {
-			t.Error("random not expect value")
-		}
-
-		resultMap[v]++
-	}
-
-	r21 := float32(resultMap[201]) / float32(resultMap[101])
-	if r21 < 1.8 || r21 > 2.2 {
-		t.Errorf("result not as expect weight, expect 2:1, actual %d : %d = %f", resultMap[201], resultMap[101], r21)
-	}
-
-	r31 := float32(resultMap[301]) / float32(resultMap[101])
-	if r31 < 2.8 || r31 > 3.2 {
-		t.Errorf("result not as expect weight, expect 3:1, actual %d : %d = %f", resultMap[301], resultMap[101], r31)
-	}
-}

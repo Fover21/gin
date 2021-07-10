@@ -41,3 +41,5 @@ type Mongo struct {
 	MaxPoolSize     uint64
 	MinPoolSize     uint64
 }
+
+var MongoSetting = &Mongo{}
